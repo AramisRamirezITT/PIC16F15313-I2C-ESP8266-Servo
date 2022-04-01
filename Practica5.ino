@@ -265,42 +265,75 @@ task_list_32ms( void )
 void alarmLogic( void ){
     Serial.println(humidity);
     alarm = 0;
-    
-    // Alarm rules
-    if  ( humidity >  0x99 && water    == 1) {
-      // {==[=======> (90°) <=======]==}
-        for (int Hz =0; Hz < 50 ;Hz++){     // repetimos la instruccion 50 veces
-        digitalWrite (servo,HIGH);
-        delayMicroseconds(1500);                // llevamos a 90°
-        digitalWrite (servo,LOW);
-        delay(19);        
-         }
-        delay(500);            
-      }
-    if  ( water    == 0    ) goto exit;    
-    if  ( humidity <  0x80 ) goto exit;
-    
-    alarm = 1;
-// {==[=======> (0°) <=======]==}
-     for (int Hz =0; Hz < 50 ;Hz++){      // repetimos la instruccion 50 veces
-    digitalWrite (servo,HIGH);
-    delayMicroseconds(700);                // llevamos a 0°
-    digitalWrite (servo,LOW);
-    delay(20);    
-    }
-    delay(500);
-    goto exit1;
-          
-exit:
-//  {==[=======> (180°) <=======]==}
-     for (int Hz =0; Hz < 50 ;Hz++){      // repetimos la instruccion 50 veces
-    digitalWrite (servo,HIGH); 
-    delayMicroseconds(2300);               // llevamos a 180°
-    digitalWrite (servo,LOW);
-    delay(18);    
-    }
-    delay(500);
 
+//************************************************************  
+   if ( humidity <= 65 ){
+     //  {==[=======> (180°) <=======]==}
+       for (int Hz =0; Hz < 50 ;Hz++){      // repetimos la instruccion 50 veces
+        digitalWrite (servo,HIGH); 
+        delayMicroseconds(2300);               // llevamos a 180°
+        digitalWrite (servo,LOW);
+        delay(18);
+       }   
+    }
+    if ( humidity > 65 && humidity <= 130 ){
+    // {==[=======> (90°) <=======]==}
+    for (int Hz =0; Hz < 50 ;Hz++){     // repetimos la instruccion 50 veces
+      digitalWrite (servo,HIGH);
+      delayMicroseconds(1500);                // llevamos a 90°
+      digitalWrite (servo,LOW);
+      delay(19);
+      
+      }    
+    }
+    if ( humidity > 130 ){
+       for (int Hz =0; Hz < 50 ;Hz++){      // repetimos la instruccion 50 veces
+          digitalWrite (servo,HIGH);
+          delayMicroseconds(700);                // llevamos a 0°
+          digitalWrite (servo,LOW);
+          delay(20);
+           
+       }
+    }
+
+ 
+//    // Alarm rules
+//************************************************************   
+//    if  ( humidity >  64 && water    == 1) {
+//      // {==[=======> (90°) <=======]==}
+//        for (int Hz =0; Hz < 50 ;Hz++){     // repetimos la instruccion 50 veces
+//        digitalWrite (servo,HIGH);
+//        delayMicroseconds(1500);                // llevamos a 90°
+//        digitalWrite (servo,LOW);
+//        delay(19);        
+//         }
+//        delay(500);            
+//      }
+//      
+//    if  ( water    == 0    ) goto exit;    
+//    if  ( humidity <  0x80 ) goto exit;
+//    alarm = 1;
+//    
+//// {==[=======> (0°) <=======]==}
+//     for (int Hz =0; Hz < 50 ;Hz++){      // repetimos la instruccion 50 veces
+//    digitalWrite (servo,HIGH);
+//    delayMicroseconds(700);                // llevamos a 0°
+//    digitalWrite (servo,LOW);
+//    delay(20);    
+//    }
+//    delay(500);
+//    goto exit1;
+//          
+//exit:
+////  {==[=======> (180°) <=======]==}
+//     for (int Hz =0; Hz < 50 ;Hz++){      // repetimos la instruccion 50 veces
+//    digitalWrite (servo,HIGH); 
+//    delayMicroseconds(2300);               // llevamos a 180°
+//    digitalWrite (servo,LOW);
+//    delay(18);    
+//    }
+//    delay(500);
+//***********************************
 exit1:        
         return;
 }
